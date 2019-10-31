@@ -1,16 +1,67 @@
 <!DOCTYPE html>
 <html lang="eng">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>"Wish Local"</title>
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="assets/javascript/shop.js"></script>
 </head>
+
 <body>
-    <div>
+    <nav>
+        <div class="nav-wrapper">
+            <a class="brand-logo right"><img style="height:150px; width:150px;" class="responsive-img"
+                    src="assets/images/logo.png"></a>
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li><a href="#">Search</a></li>
+                <li><a href="#">Your List</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <h1>Welcome to Wish Local</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <h3>Closest store, 1 stop for your needs!</h1>
+            </div>
+        </div>
     </div>
+
+    <div class="row">
+        <form class="col s12">
+            <div class="row">
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">add_shopping_cart</i>
+                    <input id="searchItem" type="text" class="validate">
+                    <label for="searchItem">Type your wish</label>
+                </div>
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">add_location</i>
+                    <input id="zipCode" type="text" class="validate">
+                    <label for="zipCode">Type your zip code</label>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <div class="col s5"></div>
+        <div class="col s2">
+            <button class="btn waves-effect waves-light" type="submit" style="margin:auto;" name="action">Submit
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+        <div class="col s5"></div>
+    </div>
+
 </body>
+
 </html>
