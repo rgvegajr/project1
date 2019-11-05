@@ -1,67 +1,139 @@
 <!DOCTYPE html>
-<html lang="eng">
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>"Wish Local"</title>
-    <link rel="stylesheet" href="assets/css/reset.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <script src="assets/javascript/shop.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Wish Local</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+  
+  
 </head>
-
 <body>
-    <nav>
-        <div class="nav-wrapper">
-            <a class="brand-logo right"><img style="height:150px; width:150px;" class="responsive-img"
-                    src="assets/images/logo.png"></a>
-            <ul id="nav-mobile" class="left hide-on-med-and-down">
-                <li><a href="#">Search</a></li>
-                <li><a href="#">Your List</a></li>
-            </ul>
-        </div>
-    </nav>
+  <nav class="black lighten-3" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container"></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="#">Your Favorites</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="sidenav">
+        <li><a href="#">Your Favorites</a></li>
+      </ul>
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+  <div class="col s12 m8 offset-m2 l6 offset-l3">
+  <img class="responsive-img" src="assets/images/image.png">
+
+  <div>
+    </div>
+  <div class="section no-pad-bot" id="index-banner">
     <div class="container">
-        <div class="row">
-            <div class="col s12">
-                <h1>Welcome to Wish Local</h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s12">
-                <h3>Closest store, 1 stop for your needs!</h1>
-            </div>
-        </div>
-    </div>
+      <br><br>
+      <h1 class="header center white-text"></h1>
+      <div class="row center">
+        <h5 class="header col s12 light">Your Shopping Solution</h5>
+      </div>   
 
-    <div class="row">
-        <form class="col s12">
-            <div class="row">
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">add_shopping_cart</i>
-                    <input id="searchItem" type="text" class="validate">
-                    <label for="searchItem">Type your wish</label>
+      <div class="row center">
+          <Button data-target="modal1" id="download-button" class="btn-large modal-trigger waves-effect waves-light black">Get Started </Button> 
+        </div>
+        <br><br>
+  
+      </div>
+      <!-- Modal Structure -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Search Your Way !</h4>
+      <div class="row">
+          <form class="col s12">
+              <div class="row">
+                  <div class="input-field col s6">
+                      <i class="material-icons prefix">add_shopping_cart</i>
+                      <input id="searchItem" type="text" class="validate">
+                      <label for="searchItem">Type your wish</label>
+                  </div>
+                  <div class="input-field col s6">
+                      <i class="material-icons prefix">add_location</i>
+                      <input id="zipCode" type="text" class="validate">
+                      <label for="zipCode"> zip code</label>
+                  </div>
+                  <ul id="dropdown1" class="dropdown-content">
+                      <li><a href="#!">5 Miles<span class="badge"></span></a></li>
+                      <li><a href="#!">10 Miles<span class="badge"></span></a></li>
+                      <li><a href="#!">25 Miles</a></li>
+                    </ul>
+                    <a class="btn dropdown-trigger black" href="#!" data-target="dropdown1">Radius in miles<i class="material-icons right">arrow_drop_down</i></a>
                 </div>
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">add_location</i>
-                    <input id="zipCode" type="text" class="validate">
-                    <label for="zipCode">Type your zip code</label>
-                </div>
-            </div>
-        </form>
+                <ul id="dropdown2" class="dropdown-content">
+                  <li><a href="#!">3 <span class="badge"></span></a></li>
+                  <li><a href="#!">5<span class="badge"></span></a></li>
+                  <li><a href="#!">10</a></li>
+                </ul>
+                <a class="btn dropdown-trigger black" href="#!" data-target="dropdown2">Number of Stores<i class="material-icons right">arrow_drop_down</i></a>
+          </form>
+      </div>
     </div>
-    <div class="row">
-        <div class="col s5"></div>
-        <div class="col s2">
-            <button class="btn waves-effect waves-light" type="submit" style="margin:auto;" name="action">Submit
-                <i class="material-icons right">send</i>
-            </button>
-        </div>
-        <div class="col s5"></div>
+    <div class="modal-footer">
+      <a href="#!" id="submitButton" class="modal-close waves-effect waves-black btn-flat">Submit</a>
     </div>
+  </div>
+</div>
 
-</body>
+<!-- Data Return -->
+<div class="container">
+    <div class="center row">
+      <div class="col l12 s12">
+        <table><caption><h2>Local Stores!</h2></caption>
+            <thead>
+                <tr>
+                    <th>Item Desired</th>
+                    <th>Store Name</th>
+                    <th>Address</th>
+                    <th>Distance</th>
+                    <th>Phone Number</th>
+                    <th>Show on Map</th>
+                    <th>Add to Favorites</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
 
+  <div class="container">
+    <div class="section">
+
+
+  <footer class="page-footer black">
+    <div class="container">
+      <div class="center row">
+        <div class="col l12 s12">
+          <h6 class="white-text">Here at Wish Local our main goal is to keep our clients happy </h6>
+          <p class="grey-text text-lighten-4">If you love to shop hassle free, this is the site for you . </p>
+
+    <div class="footer-copyright">
+      <div class="container">
+      Made with love by <a class="teal-text text-lighten-3" href="http://materializecss.com">Team 3</a>
+      </div>
+    </div>
+  </footer>
+ 
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="assets/javascript/shop.js"></script>
+  <script src="assets/javascript/app.js"></script>
+
+  <script>
+      $(document).ready(function(){
+     $(".modal").modal();
+   });
+   M.AutoInit();
+    </script>
+
+  </body>
 </html>
