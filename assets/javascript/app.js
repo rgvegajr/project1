@@ -115,7 +115,7 @@ $(document).ready(function() {
             $("<td>").text(item),
             $("<td>").text(childSnapshot.val().storeName),
             $("<td>").text(childSnapshot.val().storeAdd),
-            $("<td>").text(childSnapshot.val().storeDist),
+            $("<td>").text(Math.round((childSnapshot.val().storeDist) / 1609.344)),
             $("<td>").text(childSnapshot.val().storePhone),
             $("<td>").text("Show on map"),
             $("<td>").text("Favorite")
