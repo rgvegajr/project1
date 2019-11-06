@@ -7,6 +7,8 @@ let lat = []
 let long = []
 let names = []
 let address = []
+let phone_number = []
+let distance = []
 
 $.ajax({
     url: queryurl,
@@ -17,6 +19,8 @@ $.ajax({
     dataType: 'json',
     success: function(response){
 
+        console.log(response)
+
         let base = response.businesses
 
         // console.log(base)
@@ -26,7 +30,9 @@ $.ajax({
             long.push(base[i].coordinates.longitude)
             names.push(base[i].name)
             address.push(base[i].location.display_address)
-        }
+            phone_number.push(base[i].display_phone)
+            distance.push(base[i].distance + " Meters")
+            }
 
         L.mapquest.key = 'lYrP4vF3Uk5zgTiGGuEzQGwGIVDGuy24';
 
