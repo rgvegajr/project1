@@ -9,6 +9,8 @@ let names = []
 let address = []
 let phone_number = []
 let distance = []
+let rounded = []
+
 
 $.ajax({
     url: queryurl,
@@ -31,7 +33,11 @@ $.ajax({
             names.push(base[i].name)
             address.push(base[i].location.display_address)
             phone_number.push(base[i].display_phone)
-            distance.push(base[i].distance + " Meters")
+            distance.push(base[i].distance)
+            }
+
+        for (let i = 0; i < distance.length; i++) {
+            rounded.push(Math.round(distance[i]) + " Meters")
             }
 
         L.mapquest.key = 'lYrP4vF3Uk5zgTiGGuEzQGwGIVDGuy24';
@@ -57,9 +63,12 @@ $.ajax({
             }).addTo(map);     
             }
 
-
     }
+
 });      
+
+
+
 
 
 
