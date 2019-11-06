@@ -16,12 +16,15 @@ $(document).ready(function() {
     // Create a variable to reference the database function
     let database = firebase.database();
 
-    let item = "";
-    let zip = "";
+    let item = "shoes";
+    let zip = "33173";
     let store = "";
     let radius = 10000;
     let storeNum = 5;
-    let storesArray = [];
+    let storeName = "";
+    let storeAdd = "";
+    let storeDist = "";
+    let storePhone = "";
 
     // Capture Button Click to search for items
     $("#submitButton").on("click", function(event) {
@@ -37,15 +40,14 @@ $(document).ready(function() {
         console.log(storeNum);
     });
 
-    //insert code to query yelp and return response object
-    //ajax
-
-    item = "shoes" //static testing
-    zip = "33173" //static testing
-    radius = 5000;
-    storeNum = 5;
-    let apikey = "q1OFvftbUw9yLkYlGeg8md7bDcT0Z35v9n_DP_qQFjUzHcLHKJ87k3b7MWe35-4NNrGQ_gPOQm9WBXuTl785tf8a55k3sRNL_ItoMCZu1jkyXLWNs0OI_NydhyK6XXYx"
+    let apikey = "q1OFvftbUw9yLkYlGeg8md7bDcT0Z35v9n_DP_qQFjUzHcLHKJ87k3b7MWe35-4NNrGQ_gPOQm9WBXuTl785tf8a55k3sRNL_ItoMCZu1jkyXLWNs0OI_NydhyK6XXYx";
     let queryurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=" + item + "&location=" + zip + "&radius=" + radius + "&limit=" + storeNum;
+    // let lat = [];
+    // let long = [];
+    // let names = [];
+    // let address = [];
+    // let phone_number = [];
+    // let distance = [];
 
     $.ajax({
         url: queryurl,
@@ -55,40 +57,69 @@ $(document).ready(function() {
         method: 'GET',
         dataType: 'json'
     }).then(function(response) {
-        console.log(response);
+        console.log(response)
+        let base = response.businesses
+        console.log(base)
 
+        for (let i = 0; i < base.length; i++) {
+            // lat.push(base[i].coordinates.latitude);
+            // long.push(base[i].coordinates.longitude);
+            // names.push(base[i].name);
+            // address.push(base[i].location.display_address);
+            // phone_number.push(base[i].display_phone);
+            // distance.push(base[i].distance + " Meters");
+            storeName = base[i].name;
+            lat = base[i].coordinates.latitude;
+            long = base[i].coordinates.longitude;
+            storeAdd = base[i].location.display_address;
+            storePhone = base[i].display_phone;
+            storeDist = base[i].distance;
+            database.ref().push({
+                item: item,
+                zip: zip,
+                radius: radius,
+                storeNum: storeNum,
+                storeName: storeName,
+                storeAdd: storeAdd,
+                storeDist: storeDist,
+                storePhone: storePhone,
+                dateAdded: firebase.database.ServerValue.TIMESTAMP
 
-        let results = response.data;
+            });
+            // database.ref().push({ base: base });
 
-        // for (let i = 0; i < storeNum; i++) {
-        //     const storeName = results[i].name;
-        //     const storeAdd = results[i].location.display_address;
-        //     const storeDist = results[i].distance;
-        //     const storePhone = results[i].phone;
-        //     database.ref().push({
-        //         item: item,
-        //         zip: zip,
-        //         radius: raidus,
-        //         storeNum: storeNum,
-        //         storeName: storeName,
-        //         storeAdd: storeAdd,
-        //         storeDist: storeDist,
-        //         storePhone: storePhone,
-        //         dateAdded: firebase.database.ServerValue.TIMESTAMP
-        //     });
-
-        // };
+            // for (let i = 0; i < storeNum; i++) {
+            //     const storeName = results[i].name;
+            //     const storeAdd = results[i].location.display_address;
+            //     const storeDist = results[i].distance;
+            //     const storePhone = results[i].phone;
+            //     database.ref().push({
+            //         item: item,
+            //         zip: zip,
+            //         radius: raidus,
+            //         storeNum: storeNum,
+            //         storeName: storeName,
+            //         storeAdd: storeAdd,
+            //         storeDist: storeDist,
+            //         storePhone: storePhone,
+            //         dateAdded: firebase.database.ServerValue.TIMESTAMP
+            //     });
+            // };
+        };
     });
 
     $("#table").empty();
     database.ref().on("child_added", function(childSnapshot) {
-        console.log(childSnapshot.val());
+        console.log("db call for table=" + childSnapshot.val());
         let newStore = $("<tr>").append(
+            $("<td>").text(item),
             $("<td>").text(childSnapshot.val().storeName),
             $("<td>").text(childSnapshot.val().storeAdd),
             $("<td>").text(childSnapshot.val().storeDist),
-            $("<td>").text(childSnapshot.val().storeDist),
-            $("<td>").text(childSnapshot.val().storePhone)
+            $("<td>").text(childSnapshot.val().storePhone),
+            $("<td>").text("Show on map"),
+            $("<td>").text("Favorite")
+
         );
         $("#table").append(newStore);
     }, function(errorObject) {
