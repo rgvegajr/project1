@@ -6,18 +6,18 @@
   <title>Wish Local</title>
 
   <!-- CSS  -->
+  <link rel="stylesheet" href="assets/css/reset.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
-  
-  
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
- 
-  <div class="col s12 m8 offset-m2 l6 offset-l3">
-  <img class="responsive-img" src="assets/images/image.png">
+  
+       
+        </div>
+      </div>
+    </div>
 
-  <div>
     </div>
   <div class="section no-pad-bot" id="index-banner">
     <div class="container">
@@ -50,19 +50,25 @@
                       <input id="zipCode" type="text" class="validate">
                       <label for="zipCode"> zip code</label>
                   </div>
-                  <ul id="dropdown1" class="dropdown-content">
-                      <li><a href="#!">5 Miles<span class="badge"></span></a></li>
-                      <li><a href="#!">10 Miles<span class="badge"></span></a></li>
-                      <li><a href="#!">25 Miles</a></li>
-                    </ul>
-                    <a class="btn dropdown-trigger black" href="#!" data-target="dropdown1">Radius in miles<i class="material-icons right">arrow_drop_down</i></a>
-                </div>
-                <ul id="dropdown2" class="dropdown-content">
-                  <li><a href="#!">3 <span class="badge"></span></a></li>
-                  <li><a href="#!">5<span class="badge"></span></a></li>
-                  <li><a href="#!">10</a></li>
-                </ul>
-                <a class="btn dropdown-trigger black" href="#!" data-target="dropdown2">Number of Stores<i class="material-icons right">arrow_drop_down</i></a>
+                  <div class="input-field col s12">
+                      <select>
+                        <option value="" disabled selected> Distance</option>
+                        <option value="1"> 5 Miles</option>
+                        <option value="2"> 10 Miles</option>
+                        <option value="3"> 15 Miles</option>
+                      </select>
+                      <label>Miles</label>
+                    </div>
+
+                    <div class="input-field2 col s12">
+                        <select>
+                          <option value="" disabled selected>Stores</option>
+                          <option value="1"> 3 Stores</option>
+                          <option value="2"> 5 Stores</option>
+                          <option value="3"> 10 Stores</option>
+                        </select>
+                        <label>Stores</label>
+                      </div>
           </form>
       </div>
     </div>
