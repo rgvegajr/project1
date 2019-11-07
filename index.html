@@ -123,8 +123,12 @@
         <script src="assets/javascript/app.js"></script>
         <script>
           $(document).ready(function () {
-            $(".modal").modal();
             M.AutoInit();
+            $(".modal").modal();
+            $("#submitButton").on("click", function(e) {
+              e.preventDefault();
+              $('.modal').modal().close();
+            });
           });
         </script>
 
