@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+  <title>Wish Local</title>
+
+  <!-- CSS  -->
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+  <div class="container">
+    <img class="responsive-img" src="assets/images/image.jpg">
+  </div>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <h1 class="header center white-text"></h1>
+      <div class="row center">
+        <h5 class="header col s12 light">Your Shopping Solution</h5>
+      </div>
+
+      <div class="row center">
+        <Button data-target="modal1" id="download-button"
+          class="btn-large modal-trigger waves-effect waves-light black">Get Started </Button>
+      </div>
+      <br><br>
+
+    </div>
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>Search Your Way !</h4>
+        <div class="row">
+          <form class="col s12">
+            <div class="row">
+              <div class="input-field col s6">
+                <i class="material-icons prefix">add_shopping_cart</i>
+                <input id="searchItem" type="text" class="validate">
+                <label for="searchItem">Type your wish</label>
+              </div>
+              <div class="input-field col s6">
+                <i class="material-icons prefix">add_location</i>
+                <input id="zipCode" type="text" class="validate">
+                <label for="zipCode"> zip code</label>
+              </div>
+              <div class="input-field col s12">
+                <select id="radius">
+                  <option value="" disabled selected> Distance</option>
+                  <option value="5"> 5 Miles</option>
+                  <option value="10"> 10 Miles</option>
+                  <option value="15"> 15 Miles</option>
+                </select>
+                <label>Miles</label>
+              </div>
+
+              <div class="input-field2 col s12">
+                <select id="storeNum">
+                  <option value="" disabled selected>Stores</option>
+                  <option value="3"> 3 Stores</option>
+                  <option value="5"> 5 Stores</option>
+                  <option value="10"> 10 Stores</option>
+                </select>
+                <label>Stores</label>
+              </div>
+          </form>
+        </div>
+      </div>
+      <button class="modal-footer waves-effect waves-black btn-flat" id="submitButton" type="submit"
+        name="action">Submit
+        <i class="material-icons right">send</i>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Data Return -->
+  <div class="container">
+    <div class="center row">
+      <div class="col l12 s12">
+        <table id="table">
+          <caption>
+            <h2>Local Stores!</h2>
+          </caption>
+          <thead>
+            <tr>
+              <th>Item Desired</th>
+              <th>Store Name</th>
+              <th>Address</th>
+              <th>Distance</th>
+              <th>Phone Number</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+    <div class="container" id="map" style="width:500px; height:500px;">
+    </div>
+    <div class="container">
+      <div class="section">
+
+
+        <footer class="page-footer black">
+          <div class="container">
+            <div class="center row">
+              <div class="col l12 s12">
+                <h6 class="white-text">Here at Wish Local our main goal is to keep our clients happy </h6>
+                <p class="grey-text text-lighten-4">If you love to shop hassle free, this is the site for you . </p>
+
+                <div class="footer-copyright">
+                  <div class="container center">
+                    Made with love by <a class="teal-text text-lighten-3" href="http://materializecss.com">Team 3</a>
+                  </div>
+                </div>
+        </footer>
+
+
+        <!--  Scripts-->
+        <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-database.js"></script>
+        <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
+        <script src="assets/javascript/app.js"></script>
+        <script>
+          $(document).ready(function () {
+            M.AutoInit();
+            $(".modal").modal();
+            $("#submitButton").on("click", function(e) {
+              e.preventDefault();
+              $('.modal').modal("close");
+            });
+          });
+        </script>
+
+</body>
+
+</html>
