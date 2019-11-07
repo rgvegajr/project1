@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
   <title>Wish Local</title>
 
   <!-- CSS  -->
@@ -11,126 +12,122 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
-  
-       
-        </div>
-      </div>
-    </div>
 
-    </div>
+<body>
   <div class="section no-pad-bot" id="index-banner">
     <div class="container">
       <br><br>
       <h1 class="header center white-text"></h1>
       <div class="row center">
         <h5 class="header col s12 light">Your Shopping Solution</h5>
-      </div>   
+      </div>
 
       <div class="row center">
-          <Button data-target="modal1" id="download-button" class="btn-large modal-trigger waves-effect waves-light black">Get Started </Button> 
-        </div>
-        <br><br>
-  
+        <Button data-target="modal1" id="download-button"
+          class="btn-large modal-trigger waves-effect waves-light black">Get Started </Button>
       </div>
-      <!-- Modal Structure -->
-<div id="modal1" class="modal">
-    <div class="modal-content">
-      <h4>Search Your Way !</h4>
-      <div class="row">
-          <form class="col s12">
-              <div class="row">
-                  <div class="input-field col s6">
-                      <i class="material-icons prefix">add_shopping_cart</i>
-                      <input id="searchItem" type="text" class="validate">
-                      <label for="searchItem">Type your wish</label>
-                  </div>
-                  <div class="input-field col s6">
-                      <i class="material-icons prefix">add_location</i>
-                      <input id="zipCode" type="text" class="validate">
-                      <label for="zipCode"> zip code</label>
-                  </div>
-                  <div class="input-field col s12">
-                      <select>
-                        <option value="" disabled selected> Distance</option>
-                        <option value="1"> 5 Miles</option>
-                        <option value="2"> 10 Miles</option>
-                        <option value="3"> 15 Miles</option>
-                      </select>
-                      <label>Miles</label>
-                    </div>
+      <br><br>
 
-                    <div class="input-field2 col s12">
-                        <select>
-                          <option value="" disabled selected>Stores</option>
-                          <option value="1"> 3 Stores</option>
-                          <option value="2"> 5 Stores</option>
-                          <option value="3"> 10 Stores</option>
-                        </select>
-                        <label>Stores</label>
-                      </div>
-          </form>
-      </div>
     </div>
-    <button class="modal-footer waves-effect waves-black btn-flat" id="submitButton" type="submit" name="action">Submit
-      <i class="material-icons right">send</i>
-    </button>
-   
-  </div>
-</div>
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>Search Your Way !</h4>
+        <div class="row">
+          <form class="col s12">
+            <div class="row">
+              <div class="input-field col s6">
+                <i class="material-icons prefix">add_shopping_cart</i>
+                <input id="searchItem" type="text" class="validate">
+                <label for="searchItem">Type your wish</label>
+              </div>
+              <div class="input-field col s6">
+                <i class="material-icons prefix">add_location</i>
+                <input id="zipCode" type="text" class="validate">
+                <label for="zipCode"> zip code</label>
+              </div>
+              <div class="input-field col s12">
+                <select>
+                  <option value="" disabled selected> Distance</option>
+                  <option value="1"> 5 Miles</option>
+                  <option value="2"> 10 Miles</option>
+                  <option value="3"> 15 Miles</option>
+                </select>
+                <label>Miles</label>
+              </div>
 
-<!-- Data Return -->
-<div class="container">
+              <div class="input-field2 col s12">
+                <select>
+                  <option value="" disabled selected>Stores</option>
+                  <option value="1"> 3 Stores</option>
+                  <option value="2"> 5 Stores</option>
+                  <option value="3"> 10 Stores</option>
+                </select>
+                <label>Stores</label>
+              </div>
+          </form>
+        </div>
+      </div>
+      <button class="modal-footer waves-effect waves-black btn-flat" id="submitButton" type="submit"
+        name="action">Submit
+        <i class="material-icons right">send</i>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Data Return -->
+  <div class="container">
     <div class="center row">
       <div class="col l12 s12">
-        <table id="table"><caption><h2>Local Stores!</h2></caption>
-            <thead>
-                <tr>
-                    <th>Item Desired</th>
-                    <th>Store Name</th>
-                    <th>Address</th>
-                    <th>Distance</th>
-                    <th>Phone Number</th>
-                    <div id="map"></div>
-                </tr>
-            </thead>
+        <table id="table">
+          <caption>
+            <h2>Local Stores!</h2>
+          </caption>
+          <thead>
+            <tr>
+              <th>Item Desired</th>
+              <th>Store Name</th>
+              <th>Address</th>
+              <th>Distance</th>
+              <th>Phone Number</th>
+              <div id="map"></div>
+            </tr>
+          </thead>
         </table>
-    </div>
-</div>
-
-  <div class="container">
-    <div class="section">
-
-
-  <footer class="page-footer black">
-    <div class="container">
-      <div class="center row">
-        <div class="col l12 s12">
-          <h6 class="white-text">Here at Wish Local our main goal is to keep our clients happy </h6>
-          <p class="grey-text text-lighten-4">If you love to shop hassle free, this is the site for you . </p>
-
-    <div class="footer-copyright">
-      <div class="container">
-      Made with love by <a class="teal-text text-lighten-3" href="http://materializecss.com">Team 3</a>
       </div>
     </div>
-  </footer>
- 
 
-  <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <script src="assets/javascript/shop.js"></script>
-  <script src="assets/javascript/app.js"></script>
+    <div class="container">
+      <div class="section">
 
-  <script>
-      $(document).ready(function(){
-     $(".modal").modal();
-     M.AutoInit();
-    });
-  
 
-    </script>
+        <footer class="page-footer black">
+          <div class="container">
+            <div class="center row">
+              <div class="col l12 s12">
+                <h6 class="white-text">Here at Wish Local our main goal is to keep our clients happy </h6>
+                <p class="grey-text text-lighten-4">If you love to shop hassle free, this is the site for you . </p>
 
-  </body>
+                <div class="footer-copyright">
+                  <div class="container">
+                    Made with love by <a class="teal-text text-lighten-3" href="http://materializecss.com">Team 3</a>
+                  </div>
+                </div>
+        </footer>
+
+
+        <!--  Scripts-->
+        <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="assets/javascript/app.js"></script>
+        <script>
+          $(document).ready(function () {
+            $(".modal").modal();
+            M.AutoInit();
+          });
+        </script>
+
+</body>
+
 </html>
