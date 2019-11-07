@@ -18,7 +18,7 @@ $(document).ready(function() {
 
     let item = "hats";
     let zip = "33172";
-    let store = "";
+    //let store = "";
     let radius = 10000;
     let storeNum = 5;
     let storeName = "";
@@ -65,7 +65,7 @@ $(document).ready(function() {
                 storeAdd = base[i].location.display_address;
                 storePhone = base[i].display_phone;
                 storeDist = base[i].distance;
-                database.ref().push({
+                database.ref("/search").push({  //try with /search
                     item: item,
                     zip: zip,
                     radius: radius,
@@ -84,8 +84,18 @@ $(document).ready(function() {
             };
         });
 
-        // $("#table").empty();
-        database.ref().on("child_added", function(childSnapshot) {
+        //display base map
+
+        L.mapquest.key = 'lYrP4vF3Uk5zgTiGGuEzQGwGIVDGuy24';
+
+        let map = L.mapquest.map('map', {
+            center: [25.74, -80.29],
+            layers: L.mapquest.tileLayer('map'),
+            zoom: 11
+        });
+
+        // retrieve stores from database and create and display in table
+        database.ref().on("child_added", function(childSnapshot) {  //try with /search
             console.log("db call for table=" + childSnapshot.val());
             let newStore = $("<tr>").append(
                 $("<td>").text(item),
@@ -96,30 +106,24 @@ $(document).ready(function() {
             );
             $("#table").append(newStore);
 
+            //plot store locations on map
+
+            L.mapquest.textMarker([childSnapshot.val().lat, childSnapshot.val().long], {
+                text: childSnapshot.val().storeName,
+                subtext: childSnapshot.val().storeAdd,
+                draggable: false,
+                position: 'right',
+                type: 'marker',
+                icon: {
+                    primaryColor: '#333333',
+                    secondaryColor: '#333333',
+                    size: 'sm'
+                }
+            }).addTo(map);
+
         }, function(errorObject) {
             console.log("Errors handled: " + errorObject.code);
         });
-
-        L.mapquest.key = 'lYrP4vF3Uk5zgTiGGuEzQGwGIVDGuy24';
-
-        let map = L.mapquest.map('map', {
-            center: [25.74, -80.29],
-            layers: L.mapquest.tileLayer('map'),
-            zoom: 12
-        });
-
-        //L.mapquest.textMarker([childSnapshot.val().lat, childSnapshot.val().long], {
-        //    text: childSnapshot.val().storeName,
-        //    subtext: childSnapshot.val().storeAdd,
-        //    draggable: false,
-        //    position: 'right',
-        //    type: 'marker',
-        //    icon: {
-        //        primaryColor: '#333333',
-        //        secondaryColor: '#333333',
-        //        size: 'sm'
-        //    }
-        //}).addTo(map);
 
     });
 
