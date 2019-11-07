@@ -108,18 +108,18 @@ $(document).ready(function() {
             zoom: 12
         });
 
-        L.mapquest.textMarker([childSnapshot.val().lat, childSnapshot.val().long], {
-            text: childSnapshot.val().storeName,
-            subtext: childSnapshot.val().storeAdd,
-            draggable: false,
-            position: 'right',
-            type: 'marker',
-            icon: {
-                primaryColor: '#333333',
-                secondaryColor: '#333333',
-                size: 'sm'
-            }
-        }).addTo(map);
+        //L.mapquest.textMarker([childSnapshot.val().lat, childSnapshot.val().long], {
+        //    text: childSnapshot.val().storeName,
+        //    subtext: childSnapshot.val().storeAdd,
+        //    draggable: false,
+        //    position: 'right',
+        //    type: 'marker',
+        //    icon: {
+        //        primaryColor: '#333333',
+        //        secondaryColor: '#333333',
+        //        size: 'sm'
+        //    }
+        //}).addTo(map);
 
     });
 
