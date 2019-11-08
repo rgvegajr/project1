@@ -25,17 +25,34 @@ $(document).ready(function() {
     let storeAdd = "";
     let storeDist = "";
     let storePhone = "";
+    let submitcount = 0;
 
     //clear database upon get started click
 
+    M.AutoInit(); //moved over from index.html
+    $(".modal").modal();
+
+    //display base map. 
+    L.mapquest.key = 'lYrP4vF3Uk5zgTiGGuEzQGwGIVDGuy24';
+
+    let map = L.mapquest.map('map', {
+        center: [25.74, -80.29],
+        layers: L.mapquest.tileLayer('map'),
+        zoom: 11
+    });
+
+
+
     $("#download-button").on("click", function(event) {
         database.ref("/search").remove(); //remove previous search from realtime db
+        $("#store").empty()
     });
 
     // Capture Button Click to search for items
     $("#submitButton").on("click", function(event) {
         // Don't refresh the page!
         event.preventDefault();
+        $('.modal').modal("close"); //moved over from index.html
         item = $("#searchItem").val().trim();
         zip = $("#zipCode").val().trim();
         radius = Math.round(($("#radius").val().trim() * 1609.34));
@@ -45,6 +62,19 @@ $(document).ready(function() {
         console.log(radius);
         console.log(storeNum);
 
+        submitcount++
+
+        console.log(item);
+        console.log(zip);
+        console.log(radius);
+        console.log(storeNum);
+
+        // if check deletes previous tables if user does more than one search.
+        if (submitcount > 1) {
+            $(".tables").empty();
+            $(".text-marker").empty();
+
+        }
 
         //prepare api key and query url for ajax call
 
@@ -60,9 +90,10 @@ $(document).ready(function() {
             method: 'GET',
             dataType: 'json'
         }).then(function(response) {
-            console.log("Ajax response object=" + response)
-            let base = response.businesses
-
+            console.log("Ajax response object=" + response);
+            let base = response.businesses;
+            console.log("base object =" + base);
+            console.log("stringified base object =" + JSON.stringify(base));
             //write to the firebase realtime db
             for (let i = 0; i < base.length; i++) {
                 storeName = base[i].name;
@@ -90,19 +121,10 @@ $(document).ready(function() {
             };
         });
 
-        //display base map. 
-        L.mapquest.key = 'lYrP4vF3Uk5zgTiGGuEzQGwGIVDGuy24';
-
-        let map = L.mapquest.map('map', {
-            center: [25.74, -80.29],
-            layers: L.mapquest.tileLayer('map'),
-            zoom: 11
-        });
-
         // retrieve stores from database and create rows and display in table
         database.ref("/search").on("child_added", function(childSnapshot) { //try with /search
             console.log("db call for table=" + childSnapshot.val());
-            let newStore = $("<tr>").append(
+            let newStore = $("<tr id='store'>").append(
                 $("<td>").text(item),
                 $("<td>").text(childSnapshot.val().storeName),
                 $("<td>").text(childSnapshot.val().storeAdd),
