@@ -1,7 +1,7 @@
 $(document).ready(function() {
     // Initialize Firebase
     // Your web app's Firebase configuration
-    var firebaseConfig = {
+    var firebaseConfig = { //db for production
         apiKey: "AIzaSyCVG0EbnjHGxAlJfNRPnppdsbVGoeAR_0A",
         authDomain: "project1-419db.firebaseapp.com",
         databaseURL: "https://project1-419db.firebaseio.com",
@@ -10,6 +10,7 @@ $(document).ready(function() {
         messagingSenderId: "78571791945",
         appId: "1:78571791945:web:a3fb18f06a4d5be02dc198"
     };
+
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
 
@@ -18,13 +19,19 @@ $(document).ready(function() {
 
     let item = "hats";
     let zip = "33172";
-    let store = "";
     let radius = 10000;
     let storeNum = 5;
     let storeName = "";
     let storeAdd = "";
     let storeDist = "";
     let storePhone = "";
+    let submitcount = 0;
+
+    //clear database upon get started click
+
+    $("#download-button").on("click", function(event) {
+        database.ref("/search").remove(); //remove previous search from realtime db
+    });
 
     // Capture Button Click to search for items
     $("#submitButton").on("click", function(event) {
@@ -34,17 +41,26 @@ $(document).ready(function() {
         zip = $("#zipCode").val().trim();
         radius = Math.round(($("#radius").val().trim() * 1609.34));
         storeNum = $("#storeNum").val().trim();
+
+        submitcount++
+
         console.log(item);
         console.log(zip);
         console.log(radius);
         console.log(storeNum);
 
+        // if check deletes previous tables if user does more than one search.
+        if (submitcount >= 1) {
+            $(".tables").empty()
+        }
 
+
+        //prepare api key and query url for ajax call
 
         let apikey = "q1OFvftbUw9yLkYlGeg8md7bDcT0Z35v9n_DP_qQFjUzHcLHKJ87k3b7MWe35-4NNrGQ_gPOQm9WBXuTl785tf8a55k3sRNL_ItoMCZu1jkyXLWNs0OI_NydhyK6XXYx";
         let queryurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=" + item + "&location=" + zip + "&radius=" + radius + "&limit=" + storeNum;
 
-
+        // ajax call to yelp fusion api
         $.ajax({
             url: queryurl,
             headers: {
@@ -53,19 +69,18 @@ $(document).ready(function() {
             method: 'GET',
             dataType: 'json'
         }).then(function(response) {
-            console.log(response)
+            console.log("Ajax response object=" + response)
             let base = response.businesses
-            console.log(base)
 
+            //write to the firebase realtime db
             for (let i = 0; i < base.length; i++) {
-
                 storeName = base[i].name;
                 lat = base[i].coordinates.latitude;
                 long = base[i].coordinates.longitude;
                 storeAdd = base[i].location.display_address;
                 storePhone = base[i].display_phone;
                 storeDist = base[i].distance;
-                database.ref().push({
+                database.ref("/search").push({ //try with /search
                     item: item,
                     zip: zip,
                     radius: radius,
@@ -84,42 +99,46 @@ $(document).ready(function() {
             };
         });
 
-        // $("#table").empty();
-        database.ref().on("child_added", function(childSnapshot) {
+        //display base map. 
+        L.mapquest.key = 'lYrP4vF3Uk5zgTiGGuEzQGwGIVDGuy24';
+
+        let map = L.mapquest.map('map', {
+            center: [25.74, -80.29],
+            layers: L.mapquest.tileLayer('map'),
+            zoom: 11
+        });
+
+        // retrieve stores from database and create rows and display in table
+        database.ref("/search").on("child_added", function(childSnapshot) { //try with /search
             console.log("db call for table=" + childSnapshot.val());
-            let newStore = $("<tr>").append(
+            let newStore = $("<tr class='tables'>").append(
                 $("<td>").text(item),
                 $("<td>").text(childSnapshot.val().storeName),
                 $("<td>").text(childSnapshot.val().storeAdd),
                 $("<td>").text(Math.round((childSnapshot.val().storeDist) / 1609.344)),
                 $("<td>").text(childSnapshot.val().storePhone)
             );
+
             $("#table").append(newStore);
+
+            //plot store locations on map
+
+            L.mapquest.textMarker([childSnapshot.val().lat, childSnapshot.val().long], {
+                text: childSnapshot.val().storeName,
+                subtext: childSnapshot.val().storeAdd,
+                draggable: false,
+                position: 'right',
+                type: 'marker',
+                icon: {
+                    primaryColor: '#333333',
+                    secondaryColor: '#333333',
+                    size: 'sm'
+                }
+            }).addTo(map);
 
         }, function(errorObject) {
             console.log("Errors handled: " + errorObject.code);
         });
-
-        L.mapquest.key = 'lYrP4vF3Uk5zgTiGGuEzQGwGIVDGuy24';
-
-        let map = L.mapquest.map('map', {
-            center: [25.74, -80.29],
-            layers: L.mapquest.tileLayer('map'),
-            zoom: 12
-        });
-
-        //L.mapquest.textMarker([childSnapshot.val().lat, childSnapshot.val().long], {
-        //    text: childSnapshot.val().storeName,
-        //    subtext: childSnapshot.val().storeAdd,
-        //    draggable: false,
-        //    position: 'right',
-        //    type: 'marker',
-        //    icon: {
-        //        primaryColor: '#333333',
-        //        secondaryColor: '#333333',
-        //        size: 'sm'
-        //    }
-        //}).addTo(map);
 
     });
 
