@@ -52,6 +52,7 @@ $(document).ready(function() {
         // if check deletes previous tables if user does more than one search.
         if (submitcount >= 1) {
             $(".tables").empty()
+            $(".text-marker").empty()
         }
 
 
@@ -123,6 +124,7 @@ $(document).ready(function() {
 
             //plot store locations on map
 
+
             L.mapquest.textMarker([childSnapshot.val().lat, childSnapshot.val().long], {
                 text: childSnapshot.val().storeName,
                 subtext: childSnapshot.val().storeAdd,
@@ -135,6 +137,7 @@ $(document).ready(function() {
                     size: 'sm'
                 }
             }).addTo(map);
+
 
         }, function(errorObject) {
             console.log("Errors handled: " + errorObject.code);
