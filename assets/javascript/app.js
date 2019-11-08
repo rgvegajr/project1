@@ -45,7 +45,6 @@ $(document).ready(function() {
 
     $("#download-button").on("click", function(event) {
         database.ref("/search").remove(); //remove previous search from realtime db
-        $("#store").empty()
     });
 
     // Capture Button Click to search for items
@@ -124,7 +123,7 @@ $(document).ready(function() {
         // retrieve stores from database and create rows and display in table
         database.ref("/search").on("child_added", function(childSnapshot) { //try with /search
             console.log("db call for table=" + childSnapshot.val());
-            let newStore = $("<tr id='store'>").append(
+            let newStore = $("<tr class='tables'>").append(
                 $("<td>").text(item),
                 $("<td>").text(childSnapshot.val().storeName),
                 $("<td>").text(childSnapshot.val().storeAdd),
