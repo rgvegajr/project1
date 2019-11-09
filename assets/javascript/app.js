@@ -69,11 +69,12 @@ $(document).ready(function() {
         console.log(storeNum);
 
         // if check deletes previous tables if user does more than one search.
-        if (submitcount > 1) {
+        if (submitcount >= 1) {
+            $("#zipCode").val("");
+            $("#searchItem").val("");
             $(".tables").empty();
             $(".text-marker").empty();
-
-        }
+            }
 
         //prepare api key and query url for ajax call
 
