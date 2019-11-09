@@ -27,18 +27,22 @@ $(document).ready(function() {
     let storePhone = "";
     let submitcount = 0;
 
+    //clear database upon get started click
+
     M.AutoInit(); //moved over from index.html
     $(".modal").modal();
 
     //display base map. 
     L.mapquest.key = 'lYrP4vF3Uk5zgTiGGuEzQGwGIVDGuy24';
+
     let map = L.mapquest.map('map', {
         center: [25.74, -80.29],
         layers: L.mapquest.tileLayer('map'),
         zoom: 11
     });
 
-    //clear database upon get started click
+
+
     $("#download-button").on("click", function(event) {
         database.ref("/search").remove(); //remove previous search from realtime db
     });
@@ -53,19 +57,67 @@ $(document).ready(function() {
         radius = Math.round(($("#radius").val().trim() * 1609.34));
         storeNum = $("#storeNum").val().trim();
 
-        //input validation - future revision using modals vs alerts
+        $("#formValidate").validate({
+            rules: {
+                item: {
+                    required: true,
+                    minlength: 1
+                },
+                zip: {
+                    required: true,
+                    minlength: 5
+                },
+
+                radius: {
+                    required: true
+                },
+                storeNum: {
+                    required: true
+                }
+            },
+            //For custom messages
+            messages: {
+                item: {
+                    required: "Enter an item to search",
+                    minlength: "Enter at least 1 character"
+                },
+                zip: {
+                    required: "Enter a zipcode",
+                    minlength: "Enter a valid 5 number zipcode"
+                },
+                radius: {
+                    required: "Select a radius for your search( in miles)"
+                },
+                storeNum: {
+                    required: "Select a number of stores to return"
+                },
+                curl: "Enter your website",
+            },
+            errorElement: 'div',
+            errorPlacement: function(error, element) {
+                var placement = $(element).data('error');
+                if (placement) {
+                    $(placement).append(error)
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+
+
         // if (item == "") {
-        //     alert("Please enter an item to search for")
-        // };
+        //     alert("Please enter an item to search for");
+        // }
         // if (zip == "") {
-        //     alert("Please enter a zipcode")
-        // };
+        //     alert("Please enter a zipcode");
+        // }
         // if (radius == "") {
-        //     alert("Please select a radius to search")
-        // };
+        //     alert("Please select a radius to search");
+        // }
         // if (storeNum == "") {
-        //     alert("Please enter a number of stores to return")
-        // };
+        //     alert("Please enter a number of stores to return");
+        // }
+
 
         $('.modal').modal("close"); //moved from justeed below prevent default
 
@@ -73,7 +125,13 @@ $(document).ready(function() {
         console.log(zip);
         console.log(radius);
         console.log(storeNum);
+
         submitcount++
+
+        console.log(item);
+        console.log(zip);
+        console.log(radius);
+        console.log(storeNum);
 
         // if check deletes previous tables if user does more than one search.
         if (submitcount >= 1) {
@@ -81,6 +139,7 @@ $(document).ready(function() {
             $("#searchItem").val("");
             $(".tables").empty();
             $(".text-marker").empty();
+
         }
 
         //prepare api key and query url for ajax call
@@ -101,15 +160,7 @@ $(document).ready(function() {
             let base = response.businesses;
             console.log("base object =" + base);
             console.log("stringified base object =" + JSON.stringify(base));
-            //center map to search location/nearest store returned
-
-            // let map = L.mapquest.map('map', {  //for future functionality - centers map on nearest returned store
-            //     center: [base[0].coordinates.latitude, base[0].coordinates.longitude],
-            //     layers: L.mapquest.tileLayer('map'),
-            //     zoom: 12
-            // });
-
-            //parse return for display
+            //write to the firebase realtime db
             for (let i = 0; i < base.length; i++) {
                 storeName = base[i].name;
                 lat = base[i].coordinates.latitude;
@@ -117,7 +168,7 @@ $(document).ready(function() {
                 storeAdd = base[i].location.display_address;
                 storePhone = base[i].display_phone;
                 storeDist = base[i].distance;
-                //  write to table
+                //  test for table write 1st
                 let newStore = $("<tr class='tables'>").append(
                     $("<td>").text(item),
                     $("<td>").text(storeName),
@@ -141,8 +192,9 @@ $(document).ready(function() {
                     }
                 }).addTo(map);
 
-                //enter into realtime database for future authenticated user functionality
-                database.ref("/search").push({
+
+
+                database.ref("/search").push({ //try with /search
                     item: item,
                     zip: zip,
                     radius: radius,
@@ -154,8 +206,57 @@ $(document).ready(function() {
                     long: long,
                     storePhone: storePhone,
                     dateAdded: firebase.database.ServerValue.TIMESTAMP
+
                 });
+
+
             };
         });
     });
+    // retrieve stores from database and create rows and display in table
+    // database.ref("/search").on("child_added", function(childSnapshot) { //try with /search
+    //     console.log("db call for table=" + childSnapshot.val());
+    // let newStore = $("<tr class='tables'>").append(
+    //     $("<td>").text(item),
+    //     $("<td>").text(childSnapshot.val().storeName),
+    //     $("<td>").text(childSnapshot.val().storeAdd),
+    //     $("<td>").text(Math.round((childSnapshot.val().storeDist) / 1609.344)),
+    //     $("<td>").text(childSnapshot.val().storePhone)
+    // );
+    // $("#table").append(newStore);
+
+    //try table 1st
+    // let newStore = $("<tr class='tables'>").append(
+    //     $("<td>").text(item),
+    //     $("<td>").text(childSnapshot.val().storeName),
+    //     $("<td>").text(childSnapshot.val().storeAdd),
+    //     $("<td>").text(Math.round((childSnapshot.val().storeDist) / 1609.344)),
+    //     $("<td>").text(childSnapshot.val().storePhone)
+    // );
+
+
+
+    // $("#table").append(newStore);
+
+    //plot store locations on map
+
+    // L.mapquest.textMarker([childSnapshot.val().lat, childSnapshot.val().long], {
+    //     text: childSnapshot.val().storeName,
+    //     subtext: childSnapshot.val().storeAdd,
+    //     draggable: false,
+    //     position: 'right',
+    //     type: 'marker',
+    //     icon: {
+    //         primaryColor: '#333333',
+    //         secondaryColor: '#333333',
+    //         size: 'sm'
+    //     }
+    // }).addTo(map);
+
+    // }, function(errorObject) { //top
+    //     console.log("Errors handled: " + errorObject.code);
+    // });                        //bottom
+
+    // });//move to above table for testing
+
 });

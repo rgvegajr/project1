@@ -13,6 +13,7 @@
     <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css" />
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
 
 </head>
 
@@ -32,6 +33,7 @@
                 <Button data-target="modal1" id="download-button" class="btn-large modal-trigger waves-effect waves-light black">Get Started </Button>
             </div>
             <br><br>
+
         </div>
         <!-- Modal Structure -->
         <div id="modal1" class="modal">
@@ -52,29 +54,29 @@
                             </div>
                             <div class="input-field col s12">
                                 <select id="radius">
-                                    <option value="" disabled selected> Distance</option>
-                                    <option value="5"> 5 Miles</option>
-                                    <option value="10"> 10 Miles</option>
-                                    <option value="15"> 15 Miles</option>
-                                </select>
+                  <option value="" disabled selected> Distance</option>
+                  <option value="5"> 5 Miles</option>
+                  <option value="10"> 10 Miles</option>
+                  <option value="15"> 15 Miles</option>
+                </select>
                                 <label>Miles</label>
                             </div>
 
                             <div class="input-field2 col s12">
                                 <select id="storeNum">
-                                    <option value="" disabled selected>Stores</option>
-                                    <option value="3"> 3 Stores</option>
-                                    <option value="5"> 5 Stores</option>
-                                    <option value="10"> 10 Stores</option>
-                                </select>
+                  <option value="" disabled selected>Stores</option>
+                  <option value="3"> 3 Stores</option>
+                  <option value="5"> 5 Stores</option>
+                  <option value="10"> 10 Stores</option>
+                </select>
                                 <label>Stores</label>
                             </div>
                     </form>
                     </div>
                 </div>
                 <button class="modal-footer waves-effect waves-black btn-flat" id="submitButton" type="submit" name="action">Submit
-                <i class="material-icons right">send</i>
-            </button>
+        <i class="material-icons right">send</i>
+      </button>
 
             </div>
         </div>
@@ -109,8 +111,7 @@
                         <div class="container">
                             <div class="center row">
                                 <div class="col l12 s12">
-                                    <h6 class="white-text">Here at Wish Local our main goal is to keep our clients happy
-                                    </h6>
+                                    <h6 class="white-text">Here at Wish Local our main goal is to keep our clients happy </h6>
                                     <p class="grey-text text-lighten-4">If you love to shop hassle free, this is the site for you . </p>
 
                                     <div class="footer-copyright">
@@ -128,6 +129,7 @@
                     <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-database.js"></script>
                     <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
                     <script src="assets/javascript/app.js"></script>
+
 
 </body>
 
