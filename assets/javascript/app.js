@@ -74,7 +74,8 @@ $(document).ready(function() {
             $("#searchItem").val("");
             $(".tables").empty();
             $(".text-marker").empty();
-            }
+
+        }
 
         //prepare api key and query url for ajax call
 
@@ -120,39 +121,39 @@ $(document).ready(function() {
 
             };
         });
-
-        // retrieve stores from database and create rows and display in table
-        database.ref("/search").on("child_added", function(childSnapshot) { //try with /search
-            console.log("db call for table=" + childSnapshot.val());
-            let newStore = $("<tr class='tables'>").append(
-                $("<td>").text(item),
-                $("<td>").text(childSnapshot.val().storeName),
-                $("<td>").text(childSnapshot.val().storeAdd),
-                $("<td>").text(Math.round((childSnapshot.val().storeDist) / 1609.344)),
-                $("<td>").text(childSnapshot.val().storePhone)
-            );
-
-            $("#table").append(newStore);
-
-            //plot store locations on map
-
-            L.mapquest.textMarker([childSnapshot.val().lat, childSnapshot.val().long], {
-                text: childSnapshot.val().storeName,
-                subtext: childSnapshot.val().storeAdd,
-                draggable: false,
-                position: 'right',
-                type: 'marker',
-                icon: {
-                    primaryColor: '#333333',
-                    secondaryColor: '#333333',
-                    size: 'sm'
-                }
-            }).addTo(map);
-
-        }, function(errorObject) {
-            console.log("Errors handled: " + errorObject.code);
-        });
-
     });
+    // retrieve stores from database and create rows and display in table
+    database.ref("/search").on("child_added", function(childSnapshot) { //try with /search
+        console.log("db call for table=" + childSnapshot.val());
+        let newStore = $("<tr class='tables'>").append(
+            $("<td>").text(item),
+            $("<td>").text(childSnapshot.val().storeName),
+            $("<td>").text(childSnapshot.val().storeAdd),
+            $("<td>").text(Math.round((childSnapshot.val().storeDist) / 1609.344)),
+            $("<td>").text(childSnapshot.val().storePhone)
+        );
+
+        $("#table").append(newStore);
+
+        //plot store locations on map
+
+        L.mapquest.textMarker([childSnapshot.val().lat, childSnapshot.val().long], {
+            text: childSnapshot.val().storeName,
+            subtext: childSnapshot.val().storeAdd,
+            draggable: false,
+            position: 'right',
+            type: 'marker',
+            icon: {
+                primaryColor: '#333333',
+                secondaryColor: '#333333',
+                size: 'sm'
+            }
+        }).addTo(map);
+
+    }, function(errorObject) {
+        console.log("Errors handled: " + errorObject.code);
+    });
+
+    // });//move to above table for testing
 
 });
