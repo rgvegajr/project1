@@ -14,3 +14,8 @@ Using this application is as simple as clicking the "Get Started" button. A moda
 Shoutout and many thanks to everyone who contributed to Project #1. The development team consisted of Patrick, Liena, Ramon, & Stephen. The development was loosely split us as follows; the Back-end team: Ramon & Patrick and the Front-end team: Liena & Stephen.
 
 Thank you for using viewing and using our application.
+
+Please checkout our team presentation slides pdf file.
+
+Link to application:
+https://rgvegajr.github.io/project1/
